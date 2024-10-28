@@ -2,19 +2,45 @@
 
 public class Creature
 {
-    private string name;
-    private int level;
+    private string? name;
+    private int level = 1;
 
     public string Name
     {
-        get { return name; }
-        set { name = value; }
+        get { return name ?? "Unknown"; }
+        init
+        {
+            value = value.Trim();
+
+            if (value.Length > 0)
+            {
+                if (value.Length > 25)
+                {
+                    value = value[..25].TrimEnd();
+                }
+                if (value.Length < 3)
+                {
+                    value = value.PadRight(3, '#');
+                }
+                name = char.ToUpper(value[0]) + value.Substring(1);
+            }
+        }
     }
 
     public int Level
     {
         get { return level; }
-        set { level = value > 0 ? value : 1; }
+        init
+        {
+            var tmp = value;
+
+            if (tmp < 1)
+                level = 1;
+            else if (tmp > 10)
+                level = 10;
+            else
+                level = tmp;
+        }
     }
     public string Info => $"{Name} [{Level}]";
 
@@ -29,5 +55,13 @@ public class Creature
     public void SayHi()
     {
         Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
+    }
+
+    public void Upgrade()
+    {
+        if (level < 10)
+            level++;
+        else
+            Console.WriteLine($"Cannot upgrade {Name}, it's level is 10 (max).");
     }
 }

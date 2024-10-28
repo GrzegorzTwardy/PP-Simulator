@@ -64,4 +64,23 @@ public class Creature
         else
             Console.WriteLine($"Cannot upgrade {Name}, it's level is 10 (max).");
     }
+
+    public void Go(Direction d)
+    {
+        string directionName = d.ToString().ToLower();
+        Console.WriteLine($"{Name} goes {directionName}.");
+    }
+
+    public void Go(Direction[] d)
+    {
+        for (int i = 0; i < d.Length; i++)
+        {
+            Go(d[i]);
+        }
+    }
+
+    public void Go(string d)
+    {
+        Go(DirectionParser.Parse(d));
+    }
 }

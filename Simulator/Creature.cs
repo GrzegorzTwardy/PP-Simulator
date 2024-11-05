@@ -10,20 +10,7 @@ public abstract class Creature
         get { return name ?? "Unknown"; }
         init
         {
-            value = value.Trim();
-
-            if (value.Length > 0)
-            {
-                if (value.Length > 25)
-                {
-                    value = value[..25].TrimEnd();
-                }
-                if (value.Length < 3)
-                {
-                    value = value.PadRight(3, '#');
-                }
-                name = char.ToUpper(value[0]) + value.Substring(1);
-            }
+            name = Validator.Shortener(value, 3, 25, '#');
         }
     }
 
@@ -45,7 +32,7 @@ public abstract class Creature
 
     public abstract int Power { get; }
 
-    public string Info => $"{Name} [{Level}]";
+    public abstract string Info { get; }
 
     public Creature(string name, int level = 1)
     {
@@ -54,6 +41,11 @@ public abstract class Creature
     }
 
     public Creature() {}
+
+    public override string ToString()
+    {
+        return GetType().Name + ":  " + Info;
+    }
 
     public abstract void SayHi();
 

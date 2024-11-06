@@ -56,6 +56,8 @@ internal class Program
 
     static void Main(string[] args)
     {
-        Lab4b();
+        Point p = new(10, 25);
+        Console.WriteLine(p.Next(Direction.Right));          // (11, 25)
+        Console.WriteLine(p.NextDiagonal(Direction.Right));  // (11, 24)
     }
 }

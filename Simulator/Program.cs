@@ -25,7 +25,7 @@ internal class Program
 
     static void Lab5a()
     {
-        int[] c = [-2, -2, 2, 2, 3, 1, 5, 6, 6, -4, 0, 7, 2, 10, 5, -4, 2, 2, -2, -3];
+        int[] c = [-2, -2, 2, 2, 3, 1, 5, 6, 6, -4, 0, 7, 2, 10, 5, -4, 2, 2, -2, -3, 2, 3, 2, 10];
         Point p3 = new(0, 0);
 
         for (int i = 0; i < c.Length-3; i+=4)

@@ -26,7 +26,6 @@ public readonly struct Point
         else return default;
     }
 
-    // rotate given direction 45 degrees clockwise
     public Point NextDiagonal(Direction direction)
     {
         if (direction.Equals(Direction.Left))

@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 public static class Validator
 {

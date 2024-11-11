@@ -1,40 +1,9 @@
-﻿namespace Simulator;
+﻿using System.ComponentModel;
+
+namespace Simulator;
 
 internal class Program
 {
-    static void Lab4a()
-    {
-        Console.WriteLine("HUNT TEST\n");
-        var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
-        for (int i = 0; i < 10; i++)
-        {
-            o.Hunt();
-            o.SayHi();
-        }
-
-        Console.WriteLine("\nSING TEST\n");
-        var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
-        for (int i = 0; i < 10; i++)
-        {
-            e.Sing();
-            e.SayHi();
-        }
-
-        Console.WriteLine("\nPOWER TEST\n");
-        Creature[] creatures = {
-        o,
-        e,
-        new Orc("Morgash", 3, 8),
-        new Elf("Elandor", 5, 3)
-    };
-        foreach (Creature creature in creatures)
-        {
-            Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
-        }
-    }
-
     static void Lab4b()
     {
         object[] myObjects = {
@@ -54,10 +23,38 @@ internal class Program
         */
     }
 
+    static void Lab5a()
+    {
+        int[] c = [-2, -2, 2, 2, 3, 1, 5, 6, 6, -4, 0, 7, 2, 10, 5, -4, 2, 2, -2, -3];
+        Point p3 = new(0, 0);
+
+        for (int i = 0; i < c.Length-3; i+=4)
+        {
+            Point p1 = new(c[i], c[i+1]);
+            Point p2 = new(c[i+2], c[i+3]);
+
+            Console.WriteLine($" - Punkty {p1}, {p2}");
+
+            try
+            {
+                Rectangle r = new Rectangle(p1, p2);
+                Console.WriteLine("Prostokąt: " + r.ToString() );
+
+                if (r.Contains(p3))
+                    Console.WriteLine($"Punkt {p3} zawiera się w prostokącie.");
+                else
+                    Console.WriteLine($"Punkt {p3} NIE zawiera się w prostokącie.");
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("prostokąt nie isntieje");
+            }
+            Console.WriteLine("\n");
+        }
+    }
+
     static void Main(string[] args)
     {
-        Point p = new(10, 25);
-        Console.WriteLine(p.Next(Direction.Right));          // (11, 25)
-        Console.WriteLine(p.NextDiagonal(Direction.Right));  // (11, 24)
+        Lab5a();
     }
 }

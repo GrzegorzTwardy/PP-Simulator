@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 public class Elf : Creature
 {

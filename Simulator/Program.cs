@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Simulator.Maps;
+using System.ComponentModel;
 
 namespace Simulator;
 
@@ -53,8 +54,33 @@ internal class Program
         }
     }
 
+    static void Lab5b()
+    {
+        int[] sizes = [2, 5, 7];
+        Point p = new(2, 6);
+        Point a = new(1, 1);
+        Point w = new(5, 0);
+        Direction d = Direction.Right;
+        foreach (int s in sizes)
+        {
+            try
+            {
+                SmallSquareMap map = new SmallSquareMap(s);
+                Console.WriteLine("Rozmiar mapy: " + map.Size);
+                Console.WriteLine($"Czy istnieje {p.ToString()}: " + map.Exist(p));
+                Console.WriteLine($"Punkt na prawo od {a.ToString()}: " + map.Next(a, d));
+                Console.WriteLine($"Punkt na skos do góry od {a.ToString()}: " + map.Next(w, d));
+                Console.WriteLine($"Punkt na skos do góry od {w.ToString()}: " + map.NextDiagonal(a, d) + "\n");
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine("Błąd: " + ex.Message);
+            }
+        }
+    }
+
     static void Main(string[] args)
     {
-        Lab5a();
+        Lab5b();
     }
 }

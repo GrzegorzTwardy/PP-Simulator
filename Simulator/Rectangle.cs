@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 public class Rectangle
 {
@@ -47,6 +45,7 @@ public class Rectangle
         {
             Console.WriteLine($"Błędne współrzędne - " +
                 $"punkty ({x1}, {y1}) oraz ({x2}, {y2}) są współliniowe.");
+            throw;
         }
     }
 

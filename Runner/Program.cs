@@ -69,8 +69,8 @@ internal class Program
                 Console.WriteLine("Rozmiar mapy: " + map.Size);
                 Console.WriteLine($"Czy istnieje {p.ToString()}: " + map.Exist(p));
                 Console.WriteLine($"Punkt na prawo od {a.ToString()}: " + map.Next(a, d));
-                Console.WriteLine($"Punkt na skos do góry od {a.ToString()}: " + map.Next(w, d));
-                Console.WriteLine($"Punkt na skos do góry od {w.ToString()}: " + map.NextDiagonal(a, d) + "\n");
+                Console.WriteLine($"Punkt w prawo w dół od {a.ToString()}: " + map.NextDiagonal(a, d));
+                Console.WriteLine($"Punkt w prawo w dół od {w.ToString()}: " + map.NextDiagonal(w, d) + "\n");
             }
             catch (ArgumentOutOfRangeException ex)
             {

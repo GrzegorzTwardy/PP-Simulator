@@ -1,8 +1,11 @@
-﻿namespace Simulator.Maps;
+﻿using System.Drawing;
+
+namespace Simulator.Maps;
 
 public class SmallSquareMap : Map
 {
     public int Size { get; }
+    //private Rectangle rectangle = new(0, 0, 0, 0);
 
     public SmallSquareMap(int size)
     {

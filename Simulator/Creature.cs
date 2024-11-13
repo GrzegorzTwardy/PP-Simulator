@@ -47,7 +47,7 @@ public abstract class Creature
         return GetType().Name + ":  " + Info;
     }
 
-    public abstract void SayHi();
+    public abstract string Greeting();
 
     public void Upgrade()
     {
@@ -57,22 +57,20 @@ public abstract class Creature
             Console.WriteLine($"Cannot upgrade {Name}, it's level is 10 (max).");
     }
 
-    public void Go(Direction d)
-    {
-        string directionName = d.ToString().ToLower();
-        Console.WriteLine($"{Name} goes {directionName}.");
-    }
+    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
 
-    public void Go(Direction[] d)
+    public string[] Go(Direction[] d)
     {
+        string[] tab = new string[d.Length];
         for (int i = 0; i < d.Length; i++)
         {
-            Go(d[i]);
+            tab[i] = Go(d[i]);
         }
+        return tab;
     }
 
-    public void Go(string d)
+    public string[] Go(string d)
     {
-        Go(DirectionParser.Parse(d));
+        return Go(DirectionParser.Parse(d));
     }
 }

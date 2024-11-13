@@ -19,8 +19,7 @@ public class SmallSquareMap : Map
 
     public override bool Exist(Point p)
     {
-        Rectangle r = new Rectangle(0, 0, Size - 1, Size - 1);
-        return r.Contains(p);
+        return p.X >= 0 && p.X <= Size-1 && p.Y >= 0 && p.Y <= Size-1;
     }
 
     public override Point Next(Point p, Direction d)

@@ -9,42 +9,34 @@ public class Rectangle
 
     public Rectangle(int x1, int y1, int x2, int y2)
     {
-        try
-        {
-            if (x1 == x2 || y1 == y2)
-                throw new ArgumentException();
+        if (x1 == x2 || y1 == y2)
+            throw new ArgumentException("Punkty są współliniowe, nie można utworzyć prostokąta.");
 
-            if (x1 > x2)
+        if (x1 > x2)
+        {
+            if (y1 > y2)
             {
-                if (y1 > y2)
-                {
-                    (X1, Y1) = (x2, y2);
-                    (X2, Y2) = (x1, y1);
-                }
-                else
-                {
-                    (X1, Y1) = (x2, y1);
-                    (X2, Y2) = (x1, y2);
-                }
+                (X1, Y1) = (x2, y2);
+                (X2, Y2) = (x1, y1);
             }
             else
             {
-                if (y1 > y2)
-                {
-                    (X1, Y1) = (x1, y2);
-                    (X2, Y2) = (x2, y1);
-                }
-                else
-                {
-                    (X1, Y1) = (x1, y1);
-                    (X2, Y2) = (x2, y2);
-                }
+                (X1, Y1) = (x2, y1);
+                (X2, Y2) = (x1, y2);
             }
         }
-        catch (ArgumentException)
+        else
         {
-            Console.WriteLine($"Błędne współrzędne - " +
-                $"punkty ({x1}, {y1}) oraz ({x2}, {y2}) są współliniowe.");
+            if (y1 > y2)
+            {
+                (X1, Y1) = (x1, y2);
+                (X2, Y2) = (x2, y1);
+            }
+            else
+            {
+                (X1, Y1) = (x1, y1);
+                (X2, Y2) = (x2, y2);
+            }
         }
     }
 

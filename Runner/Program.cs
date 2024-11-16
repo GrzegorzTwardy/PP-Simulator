@@ -81,6 +81,6 @@ internal class Program
 
     static void Main(string[] args)
     {
-        Lab5b();
+        Lab5a();
     }
 }

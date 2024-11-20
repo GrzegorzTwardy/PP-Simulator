@@ -5,6 +5,12 @@
 /// </summary>
 public abstract class Map
 {
+    public void Add(Creature creature, Point point) { }
+    //remove
+    //move
+    //at(x,y)
+    //at(Point point)
+
     private readonly Rectangle _map;
     protected Map(int sizeX, int sizeY)
     {

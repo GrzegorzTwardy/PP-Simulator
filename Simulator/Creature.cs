@@ -1,10 +1,16 @@
-﻿//using Simulator.Maps;
+﻿using Simulator.Maps;
 namespace Simulator;
 
 public abstract class Creature
 {
-    //public Map? Map { get; private set; }
-    //public Point Position { get; private set; }
+    public Map? Map { get; private set; }
+    public Point Position { get; private set; }
+
+    public void InitMapandPosition(Map map, Point position)
+    {
+        //
+    }
+
     private string? name;
     private int level = 1;
 
@@ -60,7 +66,13 @@ public abstract class Creature
             Console.WriteLine($"Cannot upgrade {Name}, it's level is 10 (max).");
     }
 
-    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+    // out
+
+    public string Go(Direction direction)
+    {
+        // ma uzyc regul swojej mapy
+        return $"{direction.ToString().ToLower()}";
+    }
 
     public string[] Go(Direction[] d)
     {
@@ -72,8 +84,8 @@ public abstract class Creature
         return tab;
     }
 
-    public string[] Go(string d)
-    {
-        return Go(DirectionParser.Parse(d));
-    }
+    //public string[] Go(string d)
+    //{
+    //    return Go(DirectionParser.Parse(d));
+    //}
 }

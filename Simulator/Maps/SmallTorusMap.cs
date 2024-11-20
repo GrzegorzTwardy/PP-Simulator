@@ -6,20 +6,12 @@ public class SmallTorusMap : Map
 {
     public int Size { get; }
 
-    public SmallTorusMap(int size)
-    {
-        if (size < 5 || size > 20)
-        {
-            throw new ArgumentOutOfRangeException(nameof(size),
-                "Rozmiar mapy musi być w zakresie od 5 do 20 punktów.");
-        }
-        Size = size;
-    }
+    public SmallTorusMap(int size) : base(size, size){}
 
-    public override bool Exist(Point p)
-    {
-        return p.X >= 0 && p.X <= Size - 1 && p.Y >= 0 && p.Y <= Size - 1;
-    }
+    //public override bool Exist(Point p)
+    //{
+    //    return p.X >= 0 && p.X <= Size - 1 && p.Y >= 0 && p.Y <= Size - 1;
+    //}
 
     public override Point Next(Point p, Direction d)
     {

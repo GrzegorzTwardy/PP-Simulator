@@ -1,7 +1,10 @@
-﻿namespace Simulator;
+﻿//using Simulator.Maps;
+namespace Simulator;
 
 public abstract class Creature
 {
+    //public Map? Map { get; private set; }
+    //public Point Position { get; private set; }
     private string? name;
     private int level = 1;
 

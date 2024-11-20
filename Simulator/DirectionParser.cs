@@ -2,7 +2,7 @@
 
 public static class DirectionParser
 {
-    public static Direction[] Parse(string d)
+    public static List<Direction> Parse(string d)
     {
         int validSize = 0;
 
@@ -12,7 +12,7 @@ public static class DirectionParser
                 validSize++;
         }
         
-        Direction[] result = new Direction[validSize];
+        var result = new List<Direction>();
 
         int i = 0;
 
@@ -21,19 +21,19 @@ public static class DirectionParser
             switch (c)
             {
                 case 'r':
-                    result[i] = Direction.Right;
+                    result.Add(Direction.Right);
                     i++;
                     break;
                 case 'l':
-                    result[i] = Direction.Left;
+                    result.Add(Direction.Left);
                     i++;
                     break;
                 case 'u':
-                    result[i] = Direction.Up;
+                    result.Add(Direction.Up);
                     i++;
                     break;
                 case 'd':
-                    result[i] = Direction.Down;
+                    result.Add(Direction.Down);
                     i++;
                     break;
             }

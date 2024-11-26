@@ -79,8 +79,29 @@ internal class Program
         }
     }
 
+    static void cw2Lab6()
+    {
+        var o1 = new Orc();
+        var o2 = new Orc("Orc2");
+        var point = new Point(2, 2);
+        var map = new SmallSquareMap(20);
+        map.Add(o1, point);
+        map.Add(o2, point);
+        map.At(point);
+        map.Remove(o2, point);
+        Console.WriteLine('\n');
+        map.At(point.X, point.Y);
+        Console.WriteLine('\n');
+        map.Move(o1, point, new Point(4, 3));
+        Console.WriteLine($"Old point: {point.X}:{point.Y}");
+        map.At(point);
+        Console.WriteLine("New point: 4:3");
+        map.At(4, 3);
+    }
+
+
     static void Main(string[] args)
     {
-        Lab5a();
+        cw2Lab6();
     }
 }

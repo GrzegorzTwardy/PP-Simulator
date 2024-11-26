@@ -2,11 +2,14 @@
 
 namespace Simulator.Maps;
 
-public class SmallTorusMap : Map
+public class SmallTorusMap : SmallMap
 {
     public int Size { get; }
 
-    public SmallTorusMap(int size) : base(size, size){}
+    public SmallTorusMap(int size) : base(size, size)
+    {
+        Size = size;
+    }
 
     //public override bool Exist(Point p)
     //{

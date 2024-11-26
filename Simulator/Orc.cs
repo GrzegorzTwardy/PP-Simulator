@@ -2,7 +2,7 @@
 public class Orc : Creature
 {
     static int huntCounter = 0;
-    private int rage;
+    private int rage = 1;
     public int Rage
     {
         get { return rage; }

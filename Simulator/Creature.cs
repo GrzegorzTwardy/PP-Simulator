@@ -6,11 +6,6 @@ public abstract class Creature
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
 
-    public void InitMapandPosition(Map map, Point position)
-    {
-        //
-    }
-
     private string? name;
     private int level = 1;
 
@@ -51,6 +46,12 @@ public abstract class Creature
 
     public Creature() {}
 
+    public void InitMapandPosition(Map map, Point position)
+    {
+        Map = map;
+        Position = position;
+        map.Add(this, position);
+    }
     public override string ToString()
     {
         return GetType().Name + ":  " + Info;
@@ -66,26 +67,19 @@ public abstract class Creature
             Console.WriteLine($"Cannot upgrade {Name}, it's level is 10 (max).");
     }
 
-    // out
-
-    public string Go(Direction direction)
+    public void Go(Direction direction, bool isMoveDiagonal)
     {
-        // ma uzyc regul swojej mapy
-        return $"{direction.ToString().ToLower()}";
-    }
+        if (Map == null)
+            throw new ArgumentNullException("This creature hasn't been assigned to any map.");
 
-    public string[] Go(Direction[] d)
-    {
-        string[] tab = new string[d.Length];
-        for (int i = 0; i < d.Length; i++)
-        {
-            tab[i] = Go(d[i]);
-        }
-        return tab;
-    }
+        Point nextPosition = new Point();
 
-    //public string[] Go(string d)
-    //{
-    //    return Go(DirectionParser.Parse(d));
-    //}
+        if (isMoveDiagonal)
+            nextPosition = Map.NextDiagonal(Position, direction);
+        else
+            nextPosition = Map.Next(Position, direction);
+
+        Map.Move(this, Position, nextPosition);
+        Position = nextPosition;
+    }
 }

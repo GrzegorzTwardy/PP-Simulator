@@ -14,19 +14,19 @@ public class MapVisualizer
     {
         DrawBorder(Box.TopLeft, Box.TopMid, Box.TopRight);
 
-        for (int i = Map.SizeY - 1 - 1; i >= 0; i--)
+        for (int i = 0; i < Map.SizeY - 1; i++)
         {
             DrawRow(Box.Vertical, i, Box.Vertical);
             DrawBorder(Box.MidLeft, Box.Cross, Box.MidRight);
         }
-        DrawRow(Box.Vertical, ' ', Box.Vertical);
+        DrawRow(Box.Vertical, Map.SizeY - 1, Box.Vertical);
         DrawBorder(Box.BottomLeft, Box.BottomMid, Box.BottomRight);
     }
 
     private void DrawBorder(char leftCorner, char middle, char rightCorner)
     {
         Console.Write(leftCorner);
-        for (int i = 0; i < Map.SizeX - 1; i++)
+        for (int i = Map.SizeX - 1; i >= 0; i--)
         {
             Console.Write(Box.Horizontal);
             Console.Write(middle);
@@ -38,16 +38,16 @@ public class MapVisualizer
     private void DrawRow(char verticalBorder, int row, char verticalBorderEnd)
     {
         Console.Write(verticalBorder);
-        for (int j = 0; j < Map.SizeX - 1; j++)
+        for (int j = 0; j < Map.SizeX; j++)
         {
-            DrawCreature(j, row);
+            Console.Write(DrawCreature(j, row));
             Console.Write(verticalBorder);
         }
-        Console.Write(' ');
+        Console.Write(DrawCreature(Map.SizeX-1, row));
         Console.WriteLine(verticalBorderEnd);
     }
 
-    private void DrawCreature(int x, int y)
+    private char DrawCreature(int x, int y)
     {
         var listOfCreatures = new List<IMappable>();
         if (Map.At(new Point(x, y)) != null)
@@ -56,15 +56,15 @@ public class MapVisualizer
             if (listOfCreatures.Count > 0)
             {
                 if (listOfCreatures.Count > 1)
-                    Console.WriteLine('X');
+                    return 'X';
                 else if (listOfCreatures[0].GetType().Name == "Orc")
-                    Console.WriteLine('O');
-                else Console.WriteLine('E');
+                    return 'O';
+                else return 'E';
             }
             else
-                Console.WriteLine(' ');
+                return ' ';
         }
         else
-            Console.WriteLine(' ');
+            return ' ';
     }
 }

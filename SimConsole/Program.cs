@@ -23,8 +23,7 @@ internal class Program
         Console.ReadLine();
         while (!simulation.Finished)
         {
-            Console.WriteLine($"<{simulation.CurrentMappable.GetType().Name} - {simulation.CurrentMappable.Info}> " +
-                $"from {simulation.CurrentMappable.Position} goes {simulation.CurrentMoveName}");
+            Console.WriteLine($"<{simulation.CurrentMappable.GetType().Name}>{simulation.CurrentMappable.Position}: {simulation.CurrentMoveName} ");
             simulation.Turn();
             mapVisualizer.Draw();
             Console.WriteLine("Press any key to continue...");

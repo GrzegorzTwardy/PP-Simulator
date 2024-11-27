@@ -14,19 +14,19 @@ public class MapVisualizer
     {
         DrawBorder(Box.TopLeft, Box.TopMid, Box.TopRight);
 
-        for (int i = 0; i < Map.SizeY - 1; i++)
+        for (int i = Map.SizeY - 1; i >= 0; i--)
         {
-            DrawRow(Box.Vertical, i, Box.Vertical);
+            DrawRow(Box.Vertical, Box.Vertical, i);
             DrawBorder(Box.MidLeft, Box.Cross, Box.MidRight);
         }
-        DrawRow(Box.Vertical, Map.SizeY - 1, Box.Vertical);
+        DrawRow(Box.Vertical, Box.Vertical, Map.SizeY - 1);
         DrawBorder(Box.BottomLeft, Box.BottomMid, Box.BottomRight);
     }
 
     private void DrawBorder(char leftCorner, char middle, char rightCorner)
     {
         Console.Write(leftCorner);
-        for (int i = Map.SizeX - 1; i >= 0; i--)
+        for (int i = 0; i < Map.SizeX-1; i++)
         {
             Console.Write(Box.Horizontal);
             Console.Write(middle);
@@ -35,36 +35,28 @@ public class MapVisualizer
         Console.WriteLine(rightCorner);
     }
 
-    private void DrawRow(char verticalBorder, int row, char verticalBorderEnd)
+    private void DrawRow(char verticalBorder, char verticalBorderEnd, int row)
     {
         Console.Write(verticalBorder);
-        for (int j = 0; j < Map.SizeX; j++)
+        for (int j = 0; j < Map.SizeX-1; j++)
         {
-            Console.Write(DrawCreature(j, row));
+            Console.Write(DrawSymbol(j, row));
             Console.Write(verticalBorder);
         }
-        Console.Write(DrawCreature(Map.SizeX-1, row));
+        Console.Write(DrawSymbol(Map.SizeX - 1, row));
         Console.WriteLine(verticalBorderEnd);
     }
 
-    private char DrawCreature(int x, int y)
+    private char DrawSymbol(int x, int y)
     {
-        var listOfCreatures = new List<IMappable>();
-        if (Map.At(new Point(x, y)) != null)
-        {
-            listOfCreatures = Map.At(new Point(x, y));
-            if (listOfCreatures.Count > 0)
-            {
-                if (listOfCreatures.Count > 1)
-                    return 'X';
-                else if (listOfCreatures[0].GetType().Name == "Orc")
-                    return 'O';
-                else return 'E';
-            }
-            else
-                return ' ';
-        }
-        else
+        var mappablesAtPoint = Map.At(new Point(x, y));
+        if (mappablesAtPoint == null || mappablesAtPoint.Count == 0)
             return ' ';
+
+        if (mappablesAtPoint.Count > 1)
+            return 'X';
+        else if (mappablesAtPoint[0].GetType().Name == "Orc")
+            return 'O';
+        else return 'E';
     }
 }

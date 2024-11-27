@@ -12,21 +12,21 @@ public class Simulation
     public Map Map { get; }
 
     /// <summary>
-    /// Creatures moving on the map.
+    /// IMappable moving on the map.
     /// </summary>
-    public List<Creature> Creatures { get; }
+    public List<IMappable> Mappables { get; }
 
     /// <summary>
-    /// Starting positions of creatures.
+    /// Starting positions of mappables.
     /// </summary>
     public List<Point> Positions { get; }
 
     /// <summary>
-    /// Cyclic list of creatures moves. 
+    /// Cyclic list of mappables moves. 
     /// Bad moves are ignored - use DirectionParser.
-    /// First move is for first creature, second for second and so on.
-    /// When all creatures make moves, 
-    /// next move is again for first creature and so on.
+    /// First move is for first mappable, second for second and so on.
+    /// When all mappables make moves, 
+    /// next move is again for first mappable and so on.
     /// </summary>
     public string Moves { get; }
 
@@ -38,47 +38,47 @@ public class Simulation
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    public Creature CurrentCreature => Creatures[_turnIndex % Creatures.Count];
+    public IMappable CurrentMappable => Mappables[_turnIndex % Mappables.Count];
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
     /// </summary>
-    public string CurrentMoveName => _parsedMoves[_turnIndex % Creatures.Count].ToString().ToLower();
+    public string CurrentMoveName => _parsedMoves[_turnIndex % Mappables.Count].ToString().ToLower();
     /// <summary>
     /// Simulation constructor.
     /// Throw errors:
-    /// if creatures' list is empty,
-    /// if number of creatures differs from 
+    /// if mappables' list is empty,
+    /// if number of mappables differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creature> creatures,
+    public Simulation(Map map, List<IMappable> mappables,
         List<Point> positions, string moves)
     {
-        if (creatures.Count == 0)
-            throw new ArgumentException("Creatures' list is empty");
-        if (creatures.Count != positions.Count)
-            throw new ArgumentException("Number of creatures differs from number of starting positions");
+        if (mappables.Count == 0)
+            throw new ArgumentException("IMappables' list is empty");
+        if (mappables.Count != positions.Count)
+            throw new ArgumentException("Number of mappables differs from number of starting positions");
         if (map == null)
             throw new ArgumentException("There is no map selected");
 
         Map = map;
-        Creatures = creatures;
+        Mappables = mappables;
         Positions = positions;
         _parsedMoves = DirectionParser.Parse(moves);
         _turnIndex = 0;
         
         //set up starting positions
-        for (int i = 0; i < creatures.Count; i++)
+        for (int i = 0; i < mappables.Count; i++)
         {
-            Creatures[i].InitMapandPosition(Map, Positions[i]);
+            Mappables[i].InitMapandPosition(Map, Positions[i]);
         }
     }
 
     /// <summary>
-    /// Makes one move of current creature in current direction.
+    /// Makes one move of current mappable in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
-    public void Turn(bool enableDiagonal)
+    public void Turn()
     {
         if (Finished)
             throw new InvalidOperationException("Simulation is already finished");
@@ -89,9 +89,9 @@ public class Simulation
         }
         else
         {
-            //Creatures[_turnIndex % Creatures.Count].Go(_parsedMoves[_turnIndex], enableDiagonal);
-            CurrentCreature.Go(_parsedMoves[_turnIndex], enableDiagonal);
-            Console.WriteLine(CurrentCreature.Position);
+            //IMappable[_turnIndex % IMappable.Count].Go(_parsedMoves[_turnIndex], enableDiagonal);
+            CurrentMappable.Go(_parsedMoves[_turnIndex]);
+            Console.WriteLine(CurrentMappable.Position);
             _turnIndex++;
         }
     }

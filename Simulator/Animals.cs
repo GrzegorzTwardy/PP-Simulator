@@ -1,7 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using Simulator.Maps;
+using System.Text.RegularExpressions;
 
 namespace Simulator;
 
+//public class Animals : IMappable
 public class Animals
 {
     private string description = "Unknown";
@@ -18,6 +20,16 @@ public class Animals
     }
     public uint Size { get; set; } = 3;
     public virtual string Info => $"{Description} <{Size}>";
+
+    public void Go(Direction direction)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void InitMapandPosition(Map map, Point position)
+    {
+        throw new NotImplementedException();
+    }
 
     public override string ToString()
     {

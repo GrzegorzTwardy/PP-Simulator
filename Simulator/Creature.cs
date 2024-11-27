@@ -1,7 +1,7 @@
 ﻿using Simulator.Maps;
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
@@ -67,17 +67,13 @@ public abstract class Creature
             Console.WriteLine($"Cannot upgrade {Name}, it's level is 10 (max).");
     }
 
-    public void Go(Direction direction, bool isMoveDiagonal)
+    public void Go(Direction direction)
     {
         if (Map == null)
             throw new ArgumentNullException("This creature hasn't been assigned to any map.");
 
         Point nextPosition = new Point();
-
-        if (isMoveDiagonal)
-            nextPosition = Map.NextDiagonal(Position, direction);
-        else
-            nextPosition = Map.Next(Position, direction);
+        nextPosition = Map.Next(Position, direction);
 
         Map.Move(this, Position, nextPosition);
         Position = nextPosition;

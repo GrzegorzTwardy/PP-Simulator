@@ -14,9 +14,9 @@ public class MapVisualizer
     {
         DrawBorder(Box.TopLeft, Box.TopMid, Box.TopRight);
 
-        for (int i = 0; i < Map.SizeY - 1; i++)
+        for (int i = Map.SizeY - 1 - 1; i >= 0; i--)
         {
-            DrawRow(Box.Vertical, ' ', Box.Vertical);
+            DrawRow(Box.Vertical, i, Box.Vertical);
             DrawBorder(Box.MidLeft, Box.Cross, Box.MidRight);
         }
         DrawRow(Box.Vertical, ' ', Box.Vertical);
@@ -35,15 +35,36 @@ public class MapVisualizer
         Console.WriteLine(rightCorner);
     }
 
-    private void DrawRow(char verticalBorder, char space, char verticalBorderEnd)
+    private void DrawRow(char verticalBorder, int row, char verticalBorderEnd)
     {
         Console.Write(verticalBorder);
         for (int j = 0; j < Map.SizeX - 1; j++)
         {
-            Console.Write(space);
+            DrawCreature(j, row);
             Console.Write(verticalBorder);
         }
         Console.Write(' ');
         Console.WriteLine(verticalBorderEnd);
+    }
+
+    private void DrawCreature(int x, int y)
+    {
+        var listOfCreatures = new List<IMappable>();
+        if (Map.At(new Point(x, y)) != null)
+        {
+            listOfCreatures = Map.At(new Point(x, y));
+            if (listOfCreatures.Count > 0)
+            {
+                if (listOfCreatures.Count > 1)
+                    Console.WriteLine('X');
+                else if (listOfCreatures[0].GetType().Name == "Orc")
+                    Console.WriteLine('O');
+                else Console.WriteLine('E');
+            }
+            else
+                Console.WriteLine(' ');
+        }
+        else
+            Console.WriteLine(' ');
     }
 }

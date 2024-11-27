@@ -2,7 +2,7 @@
 
 public abstract class SmallMap : Map
 {
-    private List<Creature>?[,] _fields;
+    private List<IMappable>?[,] _fields;
 
     public SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
@@ -15,24 +15,24 @@ public abstract class SmallMap : Map
             throw new ArgumentOutOfRangeException(nameof(sizeY), "Too tall");
         }
 
-        _fields = new List<Creature>[sizeX, sizeY];
+        _fields = new List<IMappable>[sizeX, sizeY];
     }
 
-    public override void Add(Creature creature, Point p)
+    public override void Add(IMappable mappable, Point p)
     {
         if (_fields[p.X, p.Y] == null)
-            _fields[p.X, p.Y] = new List<Creature>();
-        _fields[p.X, p.Y]?.Add(creature);
+            _fields[p.X, p.Y] = new List<IMappable>();
+        _fields[p.X, p.Y]?.Add(mappable);
     }
 
-    public override void Remove(Creature creature, Point p)
+    public override void Remove(IMappable mappable, Point p)
     {
-        _fields[p.X, p.Y]?.Remove(creature);
+        _fields[p.X, p.Y]?.Remove(mappable);
         if (_fields[p.X, p.Y]?.Count == 0)
             _fields[p.X, p.Y] = null;
     }
 
-    public override List<Creature> At(Point p)
+    public override List<IMappable> At(Point p)
     {
         return _fields[p.X, p.Y];
     }
@@ -43,9 +43,9 @@ public abstract class SmallMap : Map
         At(point);
     }
 
-    public override void Move(Creature creature, Point startPoint, Point endPoint)
+    public override void Move(IMappable mappable, Point startPoint, Point endPoint)
     {
-        Remove(creature, startPoint);
-        Add(creature, endPoint);
+        Remove(mappable, startPoint);
+        Add(mappable, endPoint);
     }
 }

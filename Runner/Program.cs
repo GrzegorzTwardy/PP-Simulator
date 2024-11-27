@@ -99,9 +99,20 @@ internal class Program
         map.At(4, 3);
     }
 
+    static void Lab7a()
+    {
+        var creatures = new List<Creature>() {new Orc("c1"), new Elf("c2"), new Orc("c3")};
+        var mapa = new SmallSquareMap(15);
+        var positions = new List<Point>() { new Point(0, 0), new Point(6, 2), new Point(14, 3) };
+        var simulation = new Simulation(mapa, creatures, positions, "rurll"); // 1;0, 6;3, 0;0, 0;0, 5;3
+        while (!simulation.Finished)
+        {
+            simulation.Turn(false);
+        }
+    }
 
     static void Main(string[] args)
     {
-        cw2Lab6();
+        Lab7a();
     }
 }

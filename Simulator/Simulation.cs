@@ -38,7 +38,7 @@ public class Simulation
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    Creature CurrentCreature => Creatures[_turnIndex % Creatures.Count];
+    public Creature CurrentCreature => Creatures[_turnIndex % Creatures.Count];
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.

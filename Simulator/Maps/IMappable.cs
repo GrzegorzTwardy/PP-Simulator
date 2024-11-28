@@ -2,8 +2,8 @@
 
 public interface IMappable
 {
-    public abstract string Info { get; }
-    public Point Position { get; }
+    string Info { get; }
+    Point Position { get; }
     void Go(Direction direction);
     void InitMapandPosition(Map map, Point position);
 }

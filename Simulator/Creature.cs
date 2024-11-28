@@ -70,7 +70,7 @@ public abstract class Creature : IMappable
     public void Go(Direction direction)
     {
         if (Map == null)
-            throw new ArgumentNullException("This creature hasn't been assigned to any map.");
+            throw new ArgumentNullException("This mappable hasn't been assigned to any map.");
 
         Point nextPosition = new Point();
         nextPosition = Map.Next(Position, direction);

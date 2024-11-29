@@ -14,19 +14,19 @@ public class MapVisualizer
     {
         DrawBorder(Box.TopLeft, Box.TopMid, Box.TopRight);
 
-        for (int i = Map.SizeY - 1; i >= 0; i--)
+        for (int y = Map.SizeY - 1; y > 0; y--)
         {
-            DrawRow(Box.Vertical, Box.Vertical, i);
+            DrawRow(Box.Vertical, Box.Vertical, y);
             DrawBorder(Box.MidLeft, Box.Cross, Box.MidRight);
         }
-        DrawRow(Box.Vertical, Box.Vertical, Map.SizeY - 1);
+        DrawRow(Box.Vertical, Box.Vertical, 0);
         DrawBorder(Box.BottomLeft, Box.BottomMid, Box.BottomRight);
     }
 
     private void DrawBorder(char leftCorner, char middle, char rightCorner)
     {
         Console.Write(leftCorner);
-        for (int i = 0; i < Map.SizeX-1; i++)
+        for (int x = 0; x < Map.SizeX-1; x++)
         {
             Console.Write(Box.Horizontal);
             Console.Write(middle);
@@ -38,9 +38,9 @@ public class MapVisualizer
     private void DrawRow(char verticalBorder, char verticalBorderEnd, int row)
     {
         Console.Write(verticalBorder);
-        for (int j = 0; j < Map.SizeX-1; j++)
+        for (int x = 0; x < Map.SizeX-1; x++)
         {
-            Console.Write(DrawSymbol(j, row));
+            Console.Write(DrawSymbol(x, row));
             Console.Write(verticalBorder);
         }
         Console.Write(DrawSymbol(Map.SizeX - 1, row));
@@ -49,14 +49,13 @@ public class MapVisualizer
 
     private char DrawSymbol(int x, int y)
     {
-        var mappablesAtPoint = Map.At(new Point(x, y));
-        if (mappablesAtPoint == null || mappablesAtPoint.Count == 0)
+        var mappables = Map.At(new Point(x, y));
+        if (mappables == null || mappables.Count == 0)
             return ' ';
 
-        if (mappablesAtPoint.Count > 1)
+        if (mappables.Count > 1)
             return 'X';
-        else if (mappablesAtPoint[0].GetType().Name == "Orc")
-            return 'O';
-        else return 'E';
+
+        return mappables[0].Symbol;
     }
 }

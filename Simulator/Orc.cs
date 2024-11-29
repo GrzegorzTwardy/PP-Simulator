@@ -1,6 +1,9 @@
-﻿namespace Simulator;
+﻿using System.Linq.Expressions;
+
+namespace Simulator;
 public class Orc : Creature
 {
+    public override char Symbol { get; } = 'O';
     static int huntCounter = 0;
     private int rage = 1;
     public int Rage

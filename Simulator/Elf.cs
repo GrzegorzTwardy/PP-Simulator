@@ -2,6 +2,7 @@
 
 public class Elf : Creature
 {
+    public override char Symbol { get; } = 'E';
     static int sngCounter = 0;
     private int agility;
     public int Agility

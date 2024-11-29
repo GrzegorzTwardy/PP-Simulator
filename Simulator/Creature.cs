@@ -3,6 +3,7 @@ namespace Simulator;
 
 public abstract class Creature : IMappable
 {
+    public virtual char Symbol { get; }
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
 
@@ -70,10 +71,9 @@ public abstract class Creature : IMappable
     public void Go(Direction direction)
     {
         if (Map == null)
-            throw new ArgumentNullException("This mappable hasn't been assigned to any map.");
+            throw new ArgumentNullException(nameof(Map));
 
-        Point nextPosition = new Point();
-        nextPosition = Map.Next(Position, direction);
+        Point nextPosition = Map.Next(Position, direction);
 
         Map.Move(this, Position, nextPosition);
         Position = nextPosition;

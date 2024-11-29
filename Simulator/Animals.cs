@@ -3,32 +3,42 @@ using System.Text.RegularExpressions;
 
 namespace Simulator;
 
-//public class Animals : IMappable
-public class Animals
+public class Animals : IMappable
 {
+    public virtual char Symbol { get; } = 'A';
+    public Map? Map { get; private set; }
     private string description = "Unknown";
-    public required string Description
+    public Point Position { get; set; }
+    public string Description
     {
-        get
-        {
-            return description;
-        }
-        init
-        {
-            description = Validator.Shortener(value, 3, 15, '#');
-        }
+        get => description;
+        init => description = Validator.Shortener(value, 3, 15, '#');
     }
-    public uint Size { get; set; } = 3;
-    public virtual string Info => $"{Description} <{Size}>";
+    public uint Size { get; set; }
 
-    public void Go(Direction direction)
+    public Animals(string description, uint size = 3)
     {
-        throw new NotImplementedException();
+        Description = description;
+        Size = size;
     }
+
+    public virtual string Info => $"{Description} <{Size}>";
 
     public void InitMapandPosition(Map map, Point position)
     {
-        throw new NotImplementedException();
+        Map = map;
+        Position = position;
+        map.Add(this, position);
+    }
+
+    public virtual void Go(Direction direction)
+    {
+        if (Map == null)
+            throw new ArgumentNullException("This mappable hasn't been assigned to any map.");
+
+        Point nextPosition = Map.Next(Position, direction);
+        Map.Move(this, Position, nextPosition);
+        Position = nextPosition;
     }
 
     public override string ToString()

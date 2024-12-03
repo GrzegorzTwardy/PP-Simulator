@@ -5,25 +5,6 @@ namespace Simulator;
 
 internal class Program
 {
-    static void Lab4b()
-    {
-        object[] myObjects = {
-        new Animals() { Description = "dogs"},
-        new Birds { Description = "  eagles ", Size = 10 },
-        new Elf("e", 15, -3),
-        new Orc("morgash", 6, 4)
-    };
-        Console.WriteLine("\nMy objects:");
-        foreach (var o in myObjects) Console.WriteLine(o);
-        /*
-            My objects:
-            ANIMALS: Dogs <3>
-            BIRDS: Eagles (fly+) <10>
-            ELF: E## [10][0]
-            ORC: Morgash [6][4]
-        */
-    }
-
     static void Lab5a()
     {
         int[] c = [-2, -2, 2, 2, 3, 1, 5, 6, 6, -4, 0, 7, 2, 10, 5, -4, 2, 2, -2, -3, 2, 3, 2, 10];

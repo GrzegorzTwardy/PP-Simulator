@@ -1,5 +1,4 @@
-﻿
-using System.Text;
+﻿using System.Text;
 using Simulator;
 using Simulator.Maps;
 namespace SimConsole;
@@ -33,9 +32,9 @@ internal class Program
     static void AnimalsMap()
     {
         SmallTorusMap map = new(8, 6);
-        List<IMappable> mappables = [new Orc("Gorbag"), new Elf("Elandor"), new Birds("Orły", true), new Birds("Strusie", false, 5), new Animals("króliki")];
+        List<IMappable> mappables = [new Orc("Gorbag"), new Elf("Elandor"), new Birds("orły", true), new Birds("strusie", false, 5), new Animals("króliki")];
         List<Point> points = [new(2, 2), new(3, 1), new(6, 4), new(7, 5), new(6, 0)];
-        string moves = "dlrud uuddr";
+        string moves = "dlrud uuddr uuuld";
 
         Simulation simulation = new(map, mappables, points, moves);
         MapVisualizer mapVisualizer = new(simulation.Map);

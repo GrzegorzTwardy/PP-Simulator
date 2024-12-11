@@ -43,8 +43,10 @@ public class Simulation
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
     /// </summary>
-    //public string CurrentMoveName => _parsedMoves[_turnIndex % Mappables.Count].ToString().ToLower();
-    public string CurrentMoveName => _parsedMoves[_turnIndex].ToString().ToLower();
+    //public string CurrentMoveName => _parsedMoves[_turnIndex].ToString().ToLower();
+    public string CurrentMoveName =>
+    _parsedMoves.Count > 0 ? _parsedMoves[_turnIndex].ToString().ToLower() : null;
+
     /// <summary>
     /// Simulation constructor.
     /// Throw errors:
@@ -84,13 +86,15 @@ public class Simulation
         if (Finished)
             throw new InvalidOperationException("Simulation is already finished");
 
-        CurrentMappable.Go(_parsedMoves[_turnIndex]);
-
-        if (_turnIndex == _parsedMoves.Count-1)
+        if (_parsedMoves.Count == 0 || _turnIndex >= _parsedMoves.Count)
         {
             Finished = true;
             return;
         }
-        _turnIndex++;
+
+        CurrentMappable.Go(_parsedMoves[_turnIndex]);
+
+        if (++_turnIndex == _parsedMoves.Count)
+            Finished = true;
     }
 }

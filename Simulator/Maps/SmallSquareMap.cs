@@ -25,4 +25,14 @@ public class SmallSquareMap : SmallMap
         Point nextDiagonalPoint = p.NextDiagonal(d);
         return Exist(nextDiagonalPoint) ? nextDiagonalPoint : default;
     }
+
+    public override Map Clone()
+    {
+        var newMap = (SmallMap)Activator.CreateInstance(this.GetType(), SizeX, SizeY)!;
+        foreach (var field in Fields)
+        {
+            newMap.Fields[field.Key] = new List<IMappable>(field.Value);
+        }
+        return newMap;
+    }
 }

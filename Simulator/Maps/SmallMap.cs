@@ -49,6 +49,15 @@ public abstract class SmallMap : Map
         Remove(mappable, startPoint);
         Add(mappable, endPoint);
     }
+    public override Map Clone()
+    {
+        var newMap = (BigMap)Activator.CreateInstance(this.GetType(), SizeX, SizeY)!;
+        foreach (var field in Fields)
+        {
+            newMap.Fields[field.Key] = new List<IMappable>(field.Value);
+        }
+        return newMap;
+    }
 }
 
 //namespace Simulator.Maps;

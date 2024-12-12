@@ -64,4 +64,6 @@ public abstract class Map
     public abstract void At(int x, int y);
 
     public abstract void Move(IMappable mappable, Point startPoint, Point endPoint);
+
+    public abstract Map Clone();
 }

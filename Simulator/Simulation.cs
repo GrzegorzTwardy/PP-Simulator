@@ -1,5 +1,6 @@
 ﻿using Simulator.Maps;
 using Simulator;
+using System.Xml.Linq;
 
 public class Simulation
 {
@@ -14,12 +15,15 @@ public class Simulation
 
     // Pobiera aktualny obiekt do poruszania się na mapie
     public IMappable CurrentMappable => Mappables[_turnIndex % Mappables.Count];
+    public IMappable LastMappable { get; set; }
 
     // Pobiera nazwę ruchu dla aktualnej tury
-    public string CurrentMoveName =>
+    public string? CurrentMoveName =>
         _parsedMoves.Count > 0 && _turnIndex < _parsedMoves.Count
             ? _parsedMoves[_turnIndex].ToString().ToLower()
             : null;
+
+    public string? LastMove { get; set; }
 
     public Simulation(Map map, List<IMappable> mappables, List<Point> positions, string moves)
     {
@@ -36,7 +40,7 @@ public class Simulation
         _parsedMoves = DirectionParser.Parse(moves);
         _turnIndex = 0;
 
-        // Ustawienie początkowych pozycji
+
         for (int i = 0; i < mappables.Count; i++)
         {
             Mappables[i].InitMapandPosition(Map, Positions[i]);
@@ -45,25 +49,28 @@ public class Simulation
 
     public void Turn()
     {
+        SaveMovedInfo(CurrentMappable, CurrentMoveName);
+
         if (Finished)
             throw new InvalidOperationException("Simulation is already finished");
 
-        // Sprawdzamy, czy jest jeszcze dostępny ruch
         if (_parsedMoves.Count == 0 || _turnIndex >= _parsedMoves.Count)
         {
             Finished = true;
             return;
         }
-
-        // Wykonanie ruchu
         CurrentMappable.Go(_parsedMoves[_turnIndex]);
 
-        // Zwiększenie indeksu po wykonaniu ruchu
         _turnIndex++;
 
-        // Sprawdzamy, czy już zakończono wszystkie ruchy
         if (_turnIndex >= _parsedMoves.Count)
             Finished = true;
+    }
+
+    public void SaveMovedInfo(IMappable Cm, string Cd)
+    {
+        LastMappable = Cm;
+        LastMove = Cd;
     }
 }
 

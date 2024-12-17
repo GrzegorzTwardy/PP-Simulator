@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Simulator;
 using Simulator.Maps;
+
 namespace SimConsole;
 
 internal class Program
@@ -75,6 +76,12 @@ internal class Program
 
         Simulation simulation = new(map, mappables, points, moves);
         SimulationHistory history = new(simulation);
+
+        LogVisualizer logVisualizer = new(history);
+        for (int i = 0; i < history.TurnLogs.Count; i++)
+        {
+            logVisualizer.Draw(i);
+        }
 
         Console.WriteLine(mappables[0].ToString());
         Console.WriteLine(mappables[2].ToString());

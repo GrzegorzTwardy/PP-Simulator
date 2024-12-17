@@ -8,6 +8,7 @@ public class SimulationHistory
     public int SizeY { get; }
     public List<SimulationTurnLog> TurnLogs { get; } = [];
     // store starting positions at index 0
+    public bool startPos = true;
 
     public SimulationHistory(Simulation simulation)
     {
@@ -20,49 +21,57 @@ public class SimulationHistory
 
     private void Run()
     {
+        //var turnLog = new SimulationTurnLog(mappableName, move, Symbols);
+        //TurnLogs.Add(turnLog);
         // implement
-        List<SimulationTurnLog> turnLogList = [];
-
+        var startSymbols = GetSymbols();
+        TurnLogs.Add(new SimulationTurnLog("No one has moved", "No moves have been made", startSymbols));
         while (!_simulation.Finished)
         {
-            Dictionary<Point, char> Symbols = new();
-
-            for (int x = 0; x < SizeX; x++)
-            {
-                for (int y = 0; y < SizeY; y++)
-                {
-                    var currentPoint = new Point(x, y);
-                    var mappablesAtPoint = _simulation.Map.At(currentPoint);
-                    if (mappablesAtPoint.Count > 1)
-                    {
-                        Symbols.Add(currentPoint, 'X');
-                    }
-                    else if (mappablesAtPoint.Count == 1)
-                    {
-                        Symbols.Add(currentPoint, _simulation.CurrentMappable.Symbol);
-                    }
-                    else
-                    {
-                        Symbols.Add(currentPoint, ' ');
-                    }
-                }
-            }
-
             string mappableName = _simulation.CurrentMappable switch
             {
-                Creature C => C.Name,
-                Animals A => A.Description,
+                Creature c => c.Name,
+                Animals a => a.Description,
                 _ => "Unknown"
             };
 
-            var turnLog = new SimulationTurnLog(mappableName, _simulation.CurrentMoveName?.ToString(), Symbols);
-            TurnLogs.Add(turnLog);
+            string move = _simulation.CurrentMoveName;
 
             _simulation.Turn();
+            var symbols = GetSymbols();
+
+            TurnLogs.Add(new SimulationTurnLog(mappableName, move, symbols));
         }
 
         //testHistory();
     }
+
+    public Dictionary<Point, char> GetSymbols()
+    {
+        Dictionary<Point, char> Symbols = new();
+        for (int x = 0; x < SizeX; x++)
+        {
+            for (int y = 0; y < SizeY; y++)
+            {
+                var currentPoint = new Point(x, y);
+                var mappablesAtPoint = _simulation.Map.At(currentPoint);
+                if (mappablesAtPoint.Count > 1)
+                {
+                    Symbols.Add(currentPoint, 'X');
+                }
+                else if (mappablesAtPoint.Count == 1)
+                {
+                    Symbols.Add(currentPoint, _simulation.Map.At(currentPoint)[0].Symbol);
+                }
+                else
+                {
+                    Symbols.Add(currentPoint, ' ');
+                }
+            }
+        }
+        return Symbols;
+    }
+
     /// <summary>
     /// State of map after single simulation turn.
     /// </summary>
@@ -99,10 +108,10 @@ public class SimulationHistory
     {
         for (int i = 0; i < TurnLogs.Count; i++)
         {
-            Console.WriteLine($"===== TURN {i + 1} ======");
+            Console.WriteLine($"===== TURN {i} ======");
             Console.WriteLine(TurnLogs[i].Mappable);
             Console.WriteLine(TurnLogs[i].Move);
-            Console.WriteLine(TurnLogs[i].Symbols[new Point(0, 0)]);
+            Console.WriteLine(TurnLogs[i].Symbols[new Point(SizeX-1, 1)]);
             Console.WriteLine();
         }
     }

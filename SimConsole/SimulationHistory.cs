@@ -4,7 +4,7 @@ using Simulator;
 
 public class SimulationHistory
 {
-    // Lista do przechowywania map i danych o ruchach w poszczególnych turach
+    // Klasa do przechowywania map i danych o ruchach w poszczególnych turach
     public class TurnData
     {
         public Map Map { get; set; }

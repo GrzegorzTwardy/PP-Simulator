@@ -33,7 +33,7 @@ public class SmallTorusMapTests
 
     [Theory]
     [InlineData(3, 4, 5, 6, true)]
-    [InlineData(6, 1, 5, 3, false)]
+    [InlineData(6, 1, 5, 5, false)]
     [InlineData(19, 19, 20, 20, true)]
     [InlineData(20, 20, 20, 20, false)]
     public void Exist_ShouldReturnCorrectValue(int x, int y,

@@ -1,20 +1,15 @@
 ﻿namespace Simulator.Maps;
 
-public class SmallTorusMap : SmallMap
+public class BigTorusMap : BigMap
 {
     public int SizeX { get; }
     public int SizeY { get; }
 
-    public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY)
+    public BigTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
         SizeX = sizeX;
         SizeY = sizeY;
     }
-
-    //public override bool Exist(Point p)
-    //{
-    //    return p.X >= 0 && p.X <= Size - 1 && p.Y >= 0 && p.Y <= Size - 1;
-    //}
 
     public override Point Next(Point p, Direction d)
     {

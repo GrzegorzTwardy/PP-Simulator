@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Linq.Expressions;
-
-namespace Simulator.Maps;
+﻿namespace Simulator.Maps;
 
 public class BigBounceMap : BigMap
 {

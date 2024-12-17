@@ -2,7 +2,7 @@
 using Simulator.Maps;
 using Simulator;
 
-public class SimulationHistory
+public class SimulationHistory2
 {
     // Klasa do przechowywania map i danych o ruchach w poszczególnych turach
     public class TurnData
@@ -28,7 +28,7 @@ public class SimulationHistory
     public Simulation Sim { get; }
     private List<TurnData> _allTurns = new List<TurnData>();
 
-    public SimulationHistory(Simulation sim)
+    public SimulationHistory2(Simulation sim)
     {
         Sim = sim;
         MapVisualizer mapVisualizer = new(sim.Map);

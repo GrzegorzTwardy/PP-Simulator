@@ -62,7 +62,7 @@ internal class Program
         string moves = "lurur dluld dldll dldul";
 
         Simulation simulation = new(map, mappables, points, moves);
-        SimulationHistory history = new(simulation);
+        SimulationHistory2 history = new(simulation);
 
     }
 

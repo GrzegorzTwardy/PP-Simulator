@@ -5,7 +5,13 @@
 /// </summary>
 public abstract class Map
 {
-    private Dictionary<Point, List<IMappable>> _fields;
+    private Dictionary<Point, List<IMappable>> _fields = [];
+    public int SizeX { get; }
+    public int SizeY { get; }
+
+    protected Func<Map, Point, Direction, Point>? FNext;
+    protected Func<Map, Point, Direction, Point>? FNextDiagonal;
+
     public Dictionary<Point, List<IMappable>> Fields { get => _fields; set => _fields = value; }
     private readonly Rectangle _map;
     protected Map(int sizeX, int sizeY)
@@ -26,14 +32,11 @@ public abstract class Map
         Fields = new Dictionary<Point, List<IMappable>>();
     }
 
-    public int SizeX { get; }
-    public int SizeY { get; }
-
     public virtual bool Exist(Point p) => _map.Contains(p);
 
-    public abstract Point Next(Point p, Direction d);
+    public Point Next(Point p, Direction d) => FNext?.Invoke(this, p, d) ?? p;
 
-    public abstract Point NextDiagonal(Point p, Direction d);
+    public Point NextDiagonal(Point p, Direction d) => FNextDiagonal?.Invoke(this, p, d) ?? p;
 
 
     public void Add(IMappable mappable, Point p)
@@ -75,7 +78,6 @@ public abstract class Map
         Add(mappable, endPoint);
     }
     public abstract Map Clone();
-
 
     //public abstract Point NextDiagonal(Point p, Direction d);
 

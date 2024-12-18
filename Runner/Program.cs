@@ -95,5 +95,6 @@ internal class Program
     static void Main(string[] args)
     {
         Lab7a();
+        // sort(Comparison<T> (T x, T y))
     }
 }

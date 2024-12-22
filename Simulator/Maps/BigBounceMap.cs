@@ -2,32 +2,53 @@
 
 public class BigBounceMap : BigMap
 {
-    public int SizeX { get; }
-    public int SizeY { get; }
+    public BigBounceMap(int sizeX, int sizeY) : base(sizeX, sizeY) { }
 
-    public BigBounceMap(int sizeX, int sizeY) : base(sizeX, sizeY)
+    public static Direction InvertedDirection(Direction d)
     {
-        SizeX = sizeX;
-        SizeY = sizeY;
+        return d switch
+        {
+            Direction.Right => Direction.Left,
+            Direction.Left => Direction.Right,
+            Direction.Up => Direction.Down,
+            Direction.Down => Direction.Up,
+            _ => d
+        };
     }
 
     public override Point Next(Point p, Direction d)
     {
         Point nextPoint = p.Next(d);
-
+        
         if (Exist(nextPoint))
             return nextPoint;
 
-        return d switch
-        {
-            Direction.Right => new Point(SizeX - 2, p.Y),
-            Direction.Left => new Point(1, p.Y),
-            Direction.Up => new Point(p.X, SizeY - 2),
-            Direction.Down => new Point(p.X, 1),
-            _ => p
-        };
-        throw new InvalidDataException("Invalid Direction Value.");
+        return p.Next(InvertedDirection(d));
     }
+
+    // latajace ptaki
+    public Point NextBounce(Point p, Direction d)
+    {
+        Point nextPoint = p.Next(d);
+
+        if (Exist(nextPoint) && Exist(nextPoint.Next(d)))
+        {
+            return nextPoint.Next(d);
+        }
+        else if (Exist(nextPoint) && !Exist(nextPoint.Next(d)))
+        {
+            // idzie o i pole, ale od 2 sie odbije, czyli wraca w to samo miejsce
+            return p;
+        }
+        else if (!Exist(nextPoint) && !Exist(nextPoint.Next(d)))
+        {
+            // odbij o 2 pole w przeciwnym kierunku
+            return p.Next(InvertedDirection(d)).Next(InvertedDirection(d));
+        }
+
+        return p;
+    }
+
 
     public override Point NextDiagonal(Point p, Direction d)
     {

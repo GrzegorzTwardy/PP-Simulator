@@ -59,8 +59,8 @@ internal class Program
         BigBounceMap map = new(8, 6);
         //BigTorusMap map = new(8, 6);
         List<IMappable> mappables = [new Orc("Gorbag"), new Elf("Elandor"), new Birds("orły", true), new Birds("strusie", false, 5), new Animals("króliki")];
-        List<Point> points = [new(0, 2), new(3, 5), new(6, 3), new(7, 5), new(7, 1)];
-        string moves = "lurur dluld dldll dldul";
+        List<Point> points = [new(0, 2), new(3, 5), new(1, 5), new(7, 5), new(7, 1)];
+        string moves = "lulur dllld dlull dluul";
 
         Simulation simulation = new(map, mappables, points, moves);
         SimulationHistory2 history = new(simulation);
@@ -69,7 +69,7 @@ internal class Program
 
     static void Lab10()
     {
-        BigTorusMap map = new(8, 6);
+        BigBounceMap map = new(8, 6);
         List<IMappable> mappables = [new Orc("Gorbag"), new Elf("Elandor"), new Birds("orły", true), new Birds("strusie", false, 5), new Animals("króliki")];
         List<Point> points = [new(0, 2), new(3, 5), new(6, 3), new(7, 5), new(7, 1)];
         string moves = "lurur dluld dldll dldul";
@@ -82,7 +82,6 @@ internal class Program
         {
             logVisualizer.Draw(i);
         }
-
         Console.WriteLine(mappables[0].ToString());
         Console.WriteLine(mappables[2].ToString());
         Console.WriteLine(mappables[4].ToString());
@@ -91,6 +90,6 @@ internal class Program
     static void Main(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
-        Lab10();
+        Lab9();
     }
 }

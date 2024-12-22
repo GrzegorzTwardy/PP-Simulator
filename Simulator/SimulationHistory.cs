@@ -25,22 +25,25 @@ public class SimulationHistory
         //TurnLogs.Add(turnLog);
         // implement
         var startSymbols = GetSymbols();
-        TurnLogs.Add(new SimulationTurnLog("No one has moved", "No moves have been made", startSymbols));
+        TurnLogs.Add(new SimulationTurnLog(null, "No moves have been made", startSymbols));
         while (!_simulation.Finished)
         {
-            string mappableName = _simulation.CurrentMappable switch
-            {
-                Creature c => c.Name,
-                Animals a => a.Description,
-                _ => "Unknown"
-            };
+            //string mappableName = _simulation.CurrentMappable switch
+            //{
+            //    Creature c => c.Name,
+            //    Animals a => a.Description,
+            //    _ => "Unknown"
+            //};
 
+            //string move = _simulation.CurrentMoveName;
+
+            IMappable mappable = _simulation.CurrentMappable;
             string move = _simulation.CurrentMoveName;
 
             _simulation.Turn();
             var symbols = GetSymbols();
 
-            TurnLogs.Add(new SimulationTurnLog(mappableName, move, symbols));
+            TurnLogs.Add(new SimulationTurnLog(mappable, move, symbols));
         }
 
         //testHistory();
@@ -49,9 +52,10 @@ public class SimulationHistory
     public Dictionary<Point, char> GetSymbols()
     {
         Dictionary<Point, char> Symbols = new();
-        for (int x = 0; x < SizeX; x++)
+        for (int y = SizeY-1; y >= 0; y--)
+        //for (int y = 0; y < SizeY; y++)
         {
-            for (int y = 0; y < SizeY; y++)
+            for (int x = 0; x < SizeX; x++)
             {
                 var currentPoint = new Point(x, y);
                 var mappablesAtPoint = _simulation.Map.At(currentPoint);
@@ -82,7 +86,8 @@ public class SimulationHistory
         /// CurrentMappable.ToString()
         /// </summary>
         //public required string Mappable { get; init; }
-        public string Mappable { get; init; }
+        //public string Mappable { get; init; }
+        public IMappable? Mappable { get; init; }
         /// <summary>
         /// Text representation of move in this turn.
         /// CurrentMoveName.ToString();
@@ -96,9 +101,9 @@ public class SimulationHistory
         public Dictionary<Point, char> Symbols { get; init; }
 
 
-        public SimulationTurnLog(string mappable, string? move, Dictionary<Point, char> symbols)
+        public SimulationTurnLog(IMappable? mappable, string? move, Dictionary<Point, char> symbols)
         {
-            Mappable = mappable ?? throw new ArgumentNullException(nameof(mappable));
+            Mappable = mappable ?? null;
             Move = move ?? throw new ArgumentNullException(nameof(move));
             Symbols = symbols ?? throw new ArgumentNullException(nameof(symbols));
         }

@@ -1,4 +1,6 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
+
+namespace Simulator;
 
 public class Birds : Animals
 {
@@ -24,24 +26,25 @@ public class Birds : Animals
     public override void Go(Direction direction)
     {
         if (Map == null)
-            throw new ArgumentNullException("This mappable hasn't been assigned to any map.");
+            throw new ArgumentNullException(nameof(Map));
+
+        var newPosition = new Point();
 
         if (CanFly)
         {
-            Point nextPosition = Map.Next(Position, direction);
-
-            Map.Move(this, Position, nextPosition);
-            Position = nextPosition;
-            nextPosition = Map.Next(Position, direction);
-
-            Map.Move(this, Position, nextPosition);
-            Position = nextPosition;
+            if (Map is BigBounceMap bbm)
+            {
+                newPosition = bbm.NextBounce(Position, direction);
+            }
+            else
+            {
+                Point tmp = Map.Next(Position, direction);
+                newPosition = Map.Next(tmp, direction);
+            }
         }
-        else
-        {
-            Point nextPosition = Map.NextDiagonal(Position, direction);
-            Map.Move(this, Position, nextPosition);
-            Position = nextPosition;
-        }
+        else newPosition = Map.NextDiagonal(Position, direction);
+
+        Map.Move(this, Position, newPosition);
+        Position = newPosition;
     }
 }

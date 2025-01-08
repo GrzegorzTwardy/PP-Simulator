@@ -1,7 +1,10 @@
-﻿namespace Simulator;
+﻿using System.Text.Json.Serialization;
+
+namespace Simulator;
 
 public class Elf : Creature
 {
+    [JsonIgnore]
     public override char Symbol { get; } = 'E';
     static int sngCounter = 0;
     private int agility;
@@ -10,10 +13,14 @@ public class Elf : Creature
         get { return agility; }
         init { agility = Validator.Limiter(value, 0, 10); }
     }
+
+    [JsonIgnore]
     public override int Power
     {
         get { return (8 * Level) + (2 * Agility); }
     }
+
+    [JsonIgnore]
     public override string Info => $"{Name} [{Level}][{Agility}]";
 
     public Elf(string name, int level = 1, int agility = 1) : base(name, level)

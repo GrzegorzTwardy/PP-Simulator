@@ -1,5 +1,7 @@
 ﻿using Simulator.Maps;
 using System.ComponentModel;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Simulator;
 
@@ -92,8 +94,50 @@ internal class Program
         }
     }
 
+    static void Lab12()
+    {
+        //var options = new JsonSerializerOptions
+        //{
+        //    WriteIndented = true,
+        //    ReferenceHandler = ReferenceHandler.Preserve
+        //};
+
+        //Orc o1 = new("Gorbag", 3, 5);
+        //Orc o2 = new("Morgash", 2, 7);
+
+        //List<Orc> orcs = new() { o1, o2, o1 };
+        //Console.WriteLine(orcs[0] == orcs[2]); // True
+
+        //string json = JsonSerializer.Serialize(orcs, options);
+        //Console.WriteLine("\nJSON:");
+        //Console.WriteLine(json);
+
+        //List<Orc> deserialized =
+        //    JsonSerializer.Deserialize<List<Orc>>(json, options)!;
+
+        //Console.Write("\nReference preserved:");
+        //Console.WriteLine(deserialized[0] == deserialized[2]);
+
+        var options = new JsonSerializerOptions { WriteIndented = true };
+
+        List<IMappable> mapables = [
+            new Orc("Gorbag", 3, 5),
+            new Elf("Elandor", 2, 7),
+            new Animals { Description = "Rasbbits", Size = 10 },
+            new Birds { Description = "Eagles", Size = 15 },
+            new Birds { Description = "Emu", Size = 8, CanFly = false }
+        ];
+
+        string json = JsonSerializer.Serialize(mapables, options);
+        Console.WriteLine("\nJSON:");
+        Console.WriteLine(json);
+
+        List<IMappable> deserialized =
+            JsonSerializer.Deserialize<List<IMappable>>(json, options)!;
+    }
+
     static void Main(string[] args)
     {
-        Lab7a();
+        Lab12();
     }
 }

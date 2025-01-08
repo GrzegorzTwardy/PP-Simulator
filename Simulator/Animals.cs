@@ -1,4 +1,5 @@
 ﻿using Simulator.Maps;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
 namespace Simulator;
@@ -22,6 +23,9 @@ public class Animals : IMappable
         Size = size;
     }
 
+    public Animals() { }
+
+    [JsonIgnore]
     public virtual string Info => $"{Description} <{Size}>";
 
     public void InitMapandPosition(Map map, Point position)

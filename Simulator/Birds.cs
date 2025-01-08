@@ -1,4 +1,5 @@
 ﻿using Simulator.Maps;
+using System.Text.Json.Serialization;
 
 namespace Simulator;
 
@@ -7,6 +8,7 @@ public class Birds : Animals
     public override char Symbol { get; } = 'b';
     public bool CanFly { get; set; } = true;
 
+    [JsonIgnore]
     public override string Info
     {
         get
@@ -22,6 +24,8 @@ public class Birds : Animals
         CanFly = canFly;
         if (CanFly) Symbol = 'B';
     }
+
+    public Birds() { }
 
     public override void Go(Direction direction)
     {
